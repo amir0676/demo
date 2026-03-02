@@ -1,6 +1,6 @@
 ## Топология сети
 
-![](snapshots/Pasted image 20251115185322.png)
+![](snapshots/Pasted\ image\ 20251115185322.png)
 ## Содержание 
 ## Модуль 1. Настройка сетевой инфраструктуры
 
@@ -162,7 +162,7 @@ echo "8021q" >> /etc/modules
 
 И настраиваем файл `/etc/network/interfaces`:
 
-![](snapshots/Pasted image 20250912174818.png)
+![](snapshots/Pasted\ image\ 20250912174818.png)
 ### Задание 5 
 
 Настройте безопасный удаленный доступ на серверах HQ-SRV и BR-SRV:
