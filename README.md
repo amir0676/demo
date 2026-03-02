@@ -1,6 +1,6 @@
 ## Топология сети
 
-![[Pasted image 20251115185322.png]]
+![](snapshots/Pasted image 20251115185322.png)
 ## Содержание 
 ## Модуль 1. Настройка сетевой инфраструктуры
 
@@ -162,7 +162,7 @@ echo "8021q" >> /etc/modules
 
 И настраиваем файл `/etc/network/interfaces`:
 
-![[Pasted image 20250912174818.png]]
+![](snapshots/Pasted image 20250912174818.png)
 ### Задание 5 
 
 Настройте безопасный удаленный доступ на серверах HQ-SRV и BR-SRV:
@@ -215,7 +215,7 @@ modprobe ip_gre
 
 В файл `/etc/network/interfaces` добавляем интерфейс:
 
-![[Pasted image 20250924162618.png]]
+![](snapshots/Pasted image 20250924162618.png)
 
 Перезагружаем службу `networking`:
 
@@ -399,7 +399,7 @@ INTERFACESv4="ens37.200"
 
 Проверяем правильность настройки командой `dhcpd -t -cf /etc/dhcp/dhcpd.conf`.
 
-![[Pasted image 20250924180751.png]]
+![](snapshots/Pasted image 20250924180751.png)
 
 Перезагружаем службу и добавляем ее в автозагрузку:
 
@@ -437,13 +437,13 @@ apt update && apt install -y bind9
 
 Приводим файл `/etc/bind/named.conf.options`:
 
-![[Pasted image 20251008160959.png]]
+![](snapshots/Pasted image 20251008160959.png)
 
 Где указываем публичные серверы DNS для перенаправления запросов, адреса через которые будут приходить DNS-запросы, сети для которых разрешены рекурсивные запросы и сети из которых можем получать запросы.
 
 В файле `/etc/bind/named.conf.local` указываем зоны одну прямую и две обратных.
 
-![[Pasted image 20251008161254.png]]
+![](snapshots/Pasted image 20251008161254.png)
 
 Чтобы было быстрее настроить зоны копируем файлы:
 
@@ -457,19 +457,19 @@ cp /etc/bind/db.empty /var/lib/bind/db.1.168.192
 
 Файл `/var/lib/bind/db.au-team.irpo`:
 
-![[Pasted image 20251119225616.png]]
+![](snapshots/Pasted image 20251119225616.png)
 
 Файл `/var/lib/bind/db.0.168.192`:
 
-![[Pasted image 20251008163759.png]]
+![](snapshots/Pasted image 20251008163759.png)
 
 Файл `/var/lib/bind/db.1.168.192`:
 
-![[Pasted image 20251008163837.png]]
+![](snapshots/Pasted image 20251008163837.png)
 
 Проверяем наши файлы на ошибки командой `named-checkconf` (если команда ничего не вывела, то все в порядке) для конфигурационных файлов и `named-checkzone` для зон:
 
-![[Pasted image 20251008164141.png]]
+![](snapshots/Pasted image 20251008164141.png)
 
 Перезагружаем сервис:
 
@@ -479,7 +479,7 @@ systemctl restartr bind9
 
 Проверяем работу командой `nslookup`:
 
-![[Pasted image 20251008164339.png]]
+![](snapshots/Pasted image 20251008164339.png)
 ### Задание 11
 
 Настройте часовой пояс на всех устройствах (за исключением виртуального коммутатора, в случае его использования) согласно месту проведения экзамена.
@@ -487,7 +487,7 @@ systemctl restartr bind9
 
 Установить время можно командой `timedatectl set-timezone Europe/Moscow`.
 
-![[Pasted image 20251008164608.png]]
+![](snapshots/Pasted image 20251008164608.png)
 ## Модуль 2. Организация сетевого администрирования
 
 ### Задание 1
@@ -504,7 +504,7 @@ systemctl restartr bind9
 
 В файле `/etc/hosts` для локального сопоставления имени:
 
-![[Pasted image 20251022153250.png]]
+![](snapshots/Pasted image 20251022153250.png)
 
 Устанавливаем необходимые пакеты:
 
@@ -536,7 +536,7 @@ mkdir -p /var/lib/samba/sysvol
 
 Для интерактивного развертывания запускаем `samba-tool domain provision`:
 
-![[Pasted image 20251022152601.png]]
+![](snapshots/Pasted image 20251022152601.png)
 
 Где:
 
@@ -572,7 +572,7 @@ apt update && apt install -y chrony
 
 В файле `/etc/chrony/chrony.conf` вносим данные изменения:
 
-![[Pasted image 20251022154054.png]]
+![](snapshots/Pasted image 20251022154054.png)
 
 После этого перезагружаем ее и добавляем в автозагрузку:
 
@@ -584,7 +584,7 @@ systemctl enable --now chronyd
 
 Получаем Kerberous билет командой `kinit administrator` и смотрим выданные билеты командой `klist`:
 
-![[Pasted image 20251022154500.png]]
+![](snapshots/Pasted image 20251022154500.png)
 
 Создаем группу hq:
 
@@ -636,7 +636,7 @@ samba-tool dns add 127.0.0.1 au-team.irpo hq-srv 192.168.0.2 -U administrator
 
 Теперь переходим к клиенту, для начала настраиваем синхронизацию времени с контроллером домена редактируем файл `/etc/systemd/timesyncd.conf`, где указываем значение в строчке `NTP=`:
 
-![[Pasted image 20251022160404.png]]
+![](snapshots/Pasted image 20251022160404.png)
 
 После этого перезагружаем службу и добавляем в автозагрузку командой:
 
@@ -652,7 +652,7 @@ systemctl enable --now systemd-timesyncd
 timedatectl
 ```
 
-![[Pasted image 20251022173355.png]]
+![](snapshots/Pasted image 20251022173355.png)
 
 Для ввода рабочей станции установим на нее следующие пакеты:
 
@@ -668,7 +668,7 @@ realm discover au-team.irpo --verbose
 
 Чтобы директория доменного пользователя автоматически создавалась изменим файл `/usr/share/pam-configs/mkhomedir`:
 
-![[Pasted image 20251123002342.png]]
+![](snapshots/Pasted image 20251123002342.png)
 
 Введем команду:
 
@@ -678,7 +678,7 @@ pam-auth-update
 
 И ставим `*` напротив **Create home directory on login**:
 
-![[Pasted image 20251123002514.png]]
+![](snapshots/Pasted image 20251123002514.png)
 
 Разрешаем вход на рабочую станцию всем пользователям:
 
@@ -708,7 +708,7 @@ realm join AU-TEAM.IRPO
 
 В гипервизоре добавим два накопителя размером 1 Гб:
 
-![[Pasted image 20251022180450.png]]
+![](snapshots/Pasted image 20251022180450.png)
 
 Для настройки аппаратного RAID-массива используется пакет mdadm, поэтому следует ее установить:
 
@@ -744,7 +744,7 @@ mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sda /dev/sdc
 
 Проверим, что диск вошли в состав массива:
 
-![[Pasted image 20251024105534.png]]
+![](snapshots/Pasted image 20251024105534.png)
 
 Для правильной работы `mdadm` необходимо создать конфигурационный файл конфигурации `mdamd.conf`, для чего выполним следующую команду:
 
@@ -778,7 +778,7 @@ blkid | grep md0 >> /etc/fstab
 
 Далее приводим файл `/etc/fstab` к данному виду:
 
-![[Pasted image 20251024110141.png]]
+![](snapshots/Pasted image 20251024110141.png)
 
 Для того, чтобы ОС знала о массиве на раннем этапе загрузки, нужно обновить информацию для `initramfs`, выполним команду:
 
@@ -855,7 +855,7 @@ chmod 777 /mnt/nfs
 
 Вносим изменения в `/etc/fstab`:
 
-![[Pasted image 20251024124331.png]]
+![](snapshots/Pasted image 20251024124331.png)
 
 После перезагружаем все демоны и монтируем все директории из `/etc/fstab`:
 
@@ -883,11 +883,11 @@ apt update && apt install -y chrony
 
 В файле `/etc/chrony/chrony.conf` вносим данные изменения:
 
-![[Pasted image 20251022154054.png]]
+![](snapshots/Pasted image 20251022154054.png)
 
 На клиентах HQ-SRV, HQ-CLI, BR-RTR, BR-SRV в файле `/etc/systemd/timesyncd.conf` укажем ip-адрес NTP-сервера:
 
-![[Pasted image 20251118000113.png]]
+![](snapshots/Pasted image 20251118000113.png)
 
 После этого перезагрузим службу `systemd-timesyncd`:
 
@@ -958,7 +958,7 @@ private_key_file = /root/.ssh/id_rsa
 
 В файле `/etc/ansible/hosts` определяем хосты к которым ansible должен подключиться:
 
-![[Pasted image 20260228211244.png]]
+![](snapshots/Pasted image 20260228211244.png)
 
 Проверяем, что связь с удаленными хостами установлена:
 
@@ -978,15 +978,15 @@ ansible all -m ping
 
 ISO-образ Additional.iso можно скачать по ссылке https://disk.yandex.ru/d/0MGlkrp2B9nXDw. После того как произошло скачивание добавляем ISO-образ к виртуальной машине. Заходим в настройки ВМ и выбираем добавить CD/DVD диск.
 
-![[Pasted image 20251118231525.png]]
+![](snapshots/Pasted image 20251118231525.png)
 
 После выбираем наш файл Additional.iso.
 
-![[Pasted image 20251118231635.png]]
+![](snapshots/Pasted image 20251118231635.png)
 
 После этого командой `lsblk` можно увидеть, что диск добавлен:
 
-![[Pasted image 20251118231804.png]]
+![](snapshots/Pasted image 20251118231804.png)
 
 Установить docker можно с помощью уже готового скрипта, который есть на сайте разработчика:
 
@@ -1014,11 +1014,11 @@ docker load < /mnt/docker/mariadb_latest.tar
 
 Проверим, что образы добавились:
 
-![[Pasted image 20251118233347.png]]
+![](snapshots/Pasted image 20251118233347.png)
 
 Также у данного веб-приложения есть инструкция:
 
-![[Pasted image 20251118233604.png]]
+![](snapshots/Pasted image 20251118233604.png)
 
 Создадим docker-compose файл:
 
@@ -1067,7 +1067,7 @@ docker ps
 
 И переходим в браузере по адресу http://192.168.1.2:8080:
 
-![[Pasted image 20251119000028.png]]
+![](snapshots/Pasted image 20251119000028.png)
 ### Задание 7
 
 Разверните веб приложение на сервере HQ-SRV: 
@@ -1085,15 +1085,15 @@ docker ps
 
 ISO-образ Additional.iso можно скачать по ссылке https://disk.yandex.ru/d/0MGlkrp2B9nXDw. После того как произошло скачивание добавляем ISO-образ к виртуальной машине. Заходим в настройки ВМ и выбираем добавить CD/DVD диск.
 
-![[Pasted image 20251118231525.png]]
+![](snapshots/Pasted image 20251118231525.png)
 
 После выбираем наш файл Additional.iso.
 
-![[Pasted image 20251118231635.png]]
+![](snapshots/Pasted image 20251118231635.png)
 
 После этого командой `lsblk` можно увидеть, что диск добавлен:
 
-![[Pasted image 20251118231804.png]]
+![](snapshots/Pasted image 20251118231804.png)
 
 Теперь примонтируем внешний накопитель:
 
@@ -1135,7 +1135,7 @@ chmod 644 /var/www/html/index.php
 
 В файле `/var/www/html/index.php` укажем параметры для подключения к БД:
 
-![[Pasted image 20260223141538.png]]
+![](snapshots/Pasted image 20260223141538.png)
 
 Теперь переходим к СУБД MySQL, для начала подготовим ее:
 
@@ -1191,7 +1191,7 @@ mariadb -u webc -p -D webdb < /mnt/web/dump.sql
 
 Проверяем:
 
-![[Pasted image 20260223141739.png]]
+![](snapshots/Pasted image 20260223141739.png)
 
 Теперь включаем сервисы:
 
@@ -1205,7 +1205,7 @@ systemctl enable --now mariadb
 
 Проверка, что сайт запустился.
 
-![[Pasted image 20251120093401.png]]
+![](snapshots/Pasted image 20251120093401.png)
 ### Задание 8
 
 На маршрутизаторах сконфигурируйте статическую трансляцию портов:
@@ -1285,11 +1285,11 @@ systemctl enable --now nginx
 
 Создаем файл `/etc/nginx/sites-available/docker.au-team.irpo` со следующим содержимым:
 
-![[Pasted image 20251119232455.png]]
+![](snapshots/Pasted image 20251119232455.png)
 
 Создаем файл `/etc/nginx/sites-available/web.au-team.irpo` со следующим содержимым:
 
-![[Pasted image 20251119232435.png]]
+![](snapshots/Pasted image 20251119232435.png)
 
 Далее создаем символьные ссылки ранее созданных файлов в директорию `/etc/nginx/sites-enabled`:
 
@@ -1313,7 +1313,7 @@ nginx -s reload
 
 Проверяем работу, сайт должен открыться по доменному имени:
 
-![[Pasted image 20251119231526.png]]
+![](snapshots/Pasted image 20251119231526.png)
 ### Задание 10
 
 На маршрутизаторе ISP настройте web-based аутентификацию:
@@ -1338,7 +1338,7 @@ htpasswd -c /etc/nginx/.htpasswd WEB
 
 Добавим web-based аутентификацию для доступа к сайту web.au-team.irpo в конфигурационный файл `/etc/nginx/sites-available/web.au-team.irpo:
 
-![[Pasted image 20251119233046.png]]
+![](snapshots/Pasted image 20251119233046.png)
 
 После этого проверяем конфигурацию и перезагружаем `nginx`:
 
@@ -1350,7 +1350,7 @@ nginx -s reload
 
 Откроем сайт web.au-team.irpo с клиента:
 
-![[Pasted image 20251119232728.png]]
+![](snapshots/Pasted image 20251119232728.png)
 ### Задание 11
 
 Удобным способом установите приложение Яндекс Браузер на HQ-CLI • Установку браузера отметьте в отчёте.
@@ -1444,11 +1444,11 @@ samba-tool ou listobjects OU=Manager
 
 Вывод:
 
-![[Pasted image 20251123002745.png]]
+![](snapshots/Pasted image 20251123002745.png)
 
 Далее пробуем авторизоваться доменным пользователем:
 
-![[Pasted image 20251123003000.png]]
+![](snapshots/Pasted image 20251123003000.png)
 ### Задание 2
 
 Выполните настройку центра сертификации на базе HQ-SRV:
@@ -1491,7 +1491,7 @@ openssl ciphers | tr ':' '\n' | grep GOST
 
 Вывод команды:
 
-![[Pasted image 20251127234404.png]]
+![](snapshots/Pasted image 20251127234404.png)
 
 Создадим закрытый ключ с алгоритмом ГОСТ-2012:
 
@@ -1599,11 +1599,11 @@ default_algorithms = ALL
 
 - Для `web.au-team.irpo`:
 
-![[Pasted image 20260227085516.png]]
+![](snapshots/Pasted image 20260227085516.png)
 
 - Для `docker.au-team.irpo`:
 
-![[Pasted image 20260227085455.png]]
+![](snapshots/Pasted image 20260227085455.png)
 
 Чтобы работать с созданными сертификатами установим криптопровадер **КриптоПро CSP**. Для этого переходим на сайт https://cryptopro.ru/products/csp и скачиваем пробную версию. В результате будет скачен архив, который мы должны распаковать:
 
@@ -1619,7 +1619,7 @@ tar -xzf linux-amd64_deb.tgz
 
 Добавляем установку пакета `Импортировать корневые сертификаты из ОС`:
 
-![[Pasted image 20260224232452.png]]
+![](snapshots/Pasted image 20260224232452.png)
 
 С центра сертификации мы должны импортировать сертификат на HQ-CLI:
 
@@ -1629,7 +1629,7 @@ scp ca.cer root@192.168.0.34:/root
 
 Запускаем программу `Инструменты КриптоПро` и добавляем наш сертификат в доверенные корневые центры сертификации:
 
-![[Pasted image 20260227085416.png]]
+![](snapshots/Pasted image 20260227085416.png)
 ### Задание 3
 
 Перенастройте ip-туннель с базового до уровня туннеля, обеспечивающего шифрование трафика:
@@ -1647,21 +1647,21 @@ apt install strongswan -y
 
 Приводим файл `/etc/ipsec.conf` на HQ-RTR к следующему виду:
 
-![[Pasted image 20260226000138.png]]
+![](snapshots/Pasted image 20260226000138.png)
 
 Приводим файл `/etc/ipsec.conf` на BR-RTR к следующему виду:
 
-![[Pasted image 20260226000214.png]]
+![](snapshots/Pasted image 20260226000214.png)
 
 В файле `/etc/ipsec.secrets` указываем пароль для аутентификации, чтобы создать шифрованное соединение:
 
 - На `HQ-RTR`:
 
-![[Pasted image 20260226000517.png]]
+![](snapshots/Pasted image 20260226000517.png)
 
 - На `BR-RTR`:
 
-![[Pasted image 20260226000433.png]]
+![](snapshots/Pasted image 20260226000433.png)
 
 После этого перезагружаем службу `strongswan-starter`:
 
@@ -1671,7 +1671,7 @@ systemctl restrt strongswan-starter
 
 Проверяем создание шифрование GRE-туннеля командой `ipsec status`, должно быть установлено соединение:
 
-![[Pasted image 20260226000723.png]]
+![](snapshots/Pasted image 20260226000723.png)
 ### Задание 4
 
 Настройте межсетевой экран на маршрутизаторах HQ-RTR и BR-RTR на сеть в сторону ISP:
@@ -1710,7 +1710,7 @@ listen *:631
 
 - Изменяем секции `<Location />` и `<Location /admin>`:
 
-![[Pasted image 20260226222815.png]]
+![](snapshots/Pasted image 20260226222815.png)
 
 Назначаем администратора сервера CUPS:
 
@@ -1738,19 +1738,19 @@ lpadmin -p PDF-PRINTER-HQ-SRV -v cups-pdf -E -i /usr/share/ppd/cups-pdf/CUPS-PDF
 
 Посмотреть все добавленные принтеры можно командой `lpstat -p`:
 
-![[Pasted image 20260226223324.png]]
+![](snapshots/Pasted image 20260226223324.png)
 
 Добавляем PDF-принтер на клиенте:
 
-![[Pasted image 20260226223423.png]]
+![](snapshots/Pasted image 20260226223423.png)
 
 Чтобы проверить работу делаем пробную печать:
 
-![[Pasted image 20260226223557.png]]
+![](snapshots/Pasted image 20260226223557.png)
 
 В случае, если все настроено правильно должно появиться задание на печать в директории `/var/spool/cups`:
 
-![[Pasted image 20260226223717.png]]
+![](snapshots/Pasted image 20260226223717.png)
 ### Задание 6
 
 Реализуйте логирование при помощи rsyslog на устройствах HQ-RTR, BR-RTR, BR-SRV: 
@@ -1773,7 +1773,7 @@ apt update && apt install -y rsyslog
 
 Настраиваем конфигурацию в файле `/etc/rsyslog.conf`:
 
-![[Pasted image 20260226232054.png]]
+![](snapshots/Pasted image 20260226232054.png)
 
 Где:
 
@@ -1809,11 +1809,11 @@ logger -p user.warning "Test warning"
 
 В итоге на HQ-SRV должна быть создана директория:
 
-![[Pasted image 20260226233551.png]]
+![](snapshots/Pasted image 20260226233551.png)
 
 Теперь настроим ротацию логов. В файле `/etc/logrotare.d/hq-srv`:
 
-![[Pasted image 20260226233745.png]]
+![](snapshots/Pasted image 20260226233745.png)
 
 Где:
 
@@ -1839,7 +1839,7 @@ crontab -e
 
 После ввода вышеуказанной команды откроется текстовый редактор, куда вписываем следующие:
 
-![[Pasted image 20260226234357.png]]
+![](snapshots/Pasted image 20260226234357.png)
 ### Задание 7
 
 На сервере HQ-SRV реализуйте мониторинг устройств с помощью открытого программного обеспечения 
@@ -1962,15 +1962,15 @@ docker compose up -d
 
 Переходим в web-интерфейс Grafana по адресу `http://192.168.0.2:3000`, где встречает окно входа логин - `admin`, пароль `admin`. После первого будет требование изменить пароль и меняем его на `P@ssw0rd`.
 
-![[Pasted image 20260227095347.png]]
+![](snapshots/Pasted image 20260227095347.png)
 
 Добавить соединение к Prometheus можно в разделе `Connections/Data sources`, где указываем адрес сервера:
 
-![[Pasted image 20260227103401.png]]
+![](snapshots/Pasted image 20260227103401.png)
 
 Далее импортируем Dashboard под номером 1860:
 
-![[Pasted image 20260227105446.png]]
+![](snapshots/Pasted image 20260227105446.png)
 
 Чтобы мы могли обращаться по доменному имени добавим запись на контроллере домена BR-SRV:
 
