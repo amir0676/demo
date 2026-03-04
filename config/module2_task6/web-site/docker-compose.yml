@@ -1,0 +1,29 @@
+services:
+  database:
+    container_name: db
+    image: mariadb:10.11
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_DATABASE: "testdb"
+      MARIADB_USER: "testc"
+      MARIADB_PASSWORD: "P@ssw0rd"
+      MARIADB_ROOT_PASSWORD: "P@ssw0rd"
+
+  app:
+    container_name: app
+    image: site:latest
+    restart: unless-stopped
+    ports:
+      - 8080:8000
+    environment:
+      DB_TYPE: "maria"
+      DB_HOST: "192.168.1.2"
+      DB_NAME: "testdb"
+      DB_PORT: "3306"
+      DB_USER: "testc"
+      DB_PASS: "P@ssw0rd"
+    depends_on:
+      - database
+

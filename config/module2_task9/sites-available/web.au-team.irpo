@@ -1,0 +1,16 @@
+server {
+	listen 80;
+	server_name web.au-team.irpo;
+	
+	access_log /var/log/nginx/log_proxy_access.log;
+	error_log /var/log/nginx/log_proxy_error.log;
+
+	location / {
+		proxy_pass http://172.16.1.2:8080;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarder-For $pxoxy_add_x_forwarder_for;
+		proxy_set_header X-Real-IP $remote_addr;
+		auth_basic "Restricted area";
+		auth_basic_user_file /etc/nginx/.htpasswd;
+	}
+}

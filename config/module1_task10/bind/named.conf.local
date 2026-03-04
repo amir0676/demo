@@ -1,0 +1,14 @@
+zone "au-team.irpo" {
+	type master;
+	file "/var/lib/bind/db.au-team.irpo";
+};
+
+zone "0.168.192.in-addr.arpa" {
+	type master;
+	file "/var/lib/bind/db.0.168.192";
+};
+
+zone "1.168.192.in-addr.arpa" {
+	type master;
+	file "/var/lib/bind/db.1.168.192";
+};

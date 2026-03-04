@@ -1,0 +1,16 @@
+$TTL	86400
+@	IN	SOA	hq-srv.au-team.irpo. root.au-team.irpo. (
+			      1		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			  86400 )	; Negative Cache TTL
+
+@	IN	NS	hq-srv.au-team.irpo.
+hq-srv	IN	A	192.168.0.2
+hq-rtr	IN	A	192.168.0.1
+br-srv	IN	A	192.168.1.2
+br-rtr	IN	A	192.168.1.1
+hq-cli	IN	A	192.168.0.34
+docker	IN	A	172.16.1.1
+web	IN	A	172.16.2.1

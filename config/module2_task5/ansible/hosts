@@ -1,0 +1,7 @@
+[Routers]
+HQ-RTR	ansible_host=192.168.0.1	ansible_user=net_admin
+BR-RTR	ansbile_host=1921.68.1.1	ansible_user=net_admin
+
+[HQ-Clients]
+HQ-SRV	ansible_host=192.168.0.2	ansible_user=sshuser	ansible_port=2026
+HQ-CLI	ansible_host=192.168.0.34	ansible_user=root

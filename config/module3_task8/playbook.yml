@@ -1,0 +1,18 @@
+---
+- name: PC-INFO
+  hosts: HQ-Clients
+
+  tasks:
+    - name: Append hostname in report file
+      lineinfile:
+        path: /etc/ansible/PC_INFO/{{ ansible_hostname }}.yml
+        line: "Hostname: {{ ansible_hostname }}"
+        create: true
+      delegate_to: 127.0.0.1
+
+    - name: Append IPv4 address
+      lineinfile:
+        path: /etc/ansible/PC_INFO/{{ ansible_hostname }}.yml
+        line: "IPv4 address: {{ ansible_default_ipv4.address }} \n"
+        create: true
+      delegate_to: 127.0.0.1

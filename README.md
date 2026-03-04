@@ -1416,7 +1416,7 @@ while IFS=";" read -r firstName lastName role phone ou street zip city country p
         --job-title="$role" \
         --userou="OU=$ou"
     samba-tool user setexpiry "$username" --noexpiry
-    samba-too user enable "$username"
+    samba-tool user enable "$username"
 done < "$csv_file"
 ```
 
@@ -1999,7 +1999,7 @@ mkdir /etc/ansible/PC_INFO/
 ```yaml
 ---
 - name: PC-INFO
-  hosts: HQ-Servers
+  hosts: HQ-Clients
   
   tasks:
   - name: Append hostname in report file
